@@ -3,10 +3,27 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
+st.set_page_config(
+    page_title="Blurred Image",
+    page_icon="🏡",
+    layout="wide",
+)
+
+st.write("# Blurred Image")
+st.write(
+     "Blurred image is a visual representation of a scene or object in which the details and sharpness have been intentionally reduced or lost. Blurring in images is achieved by applying a blur filter or algorithm that alters the appearance of the pixels in the image. The result is a smoothing of fine details and a reduction in the contrast between adjacent pixels"
+)
+
+st.write("## How it works?")
+st.write(
+     "Blurred image is created by applying a mathematical operation or filter to each pixel in an original image, which alters the pixel's color or brightness based on its surrounding pixels. The specific method used to apply the blur filter determines the type and extent of blurring."
+)
+
+st.write("## Try it Out!")
+
 # Function for make blur level 0-100
 def blur_image(image, blur_level):
-    # Calculate the kernel size based on blur level
-    kernel_size = int(blur_level * 0.01 * 20)  # Range: 0-20
+    kernel_size = int(blur_level * 0.01 * 20)
 
     # make kernel size is odd
     if kernel_size % 2 == 0:
@@ -19,7 +36,6 @@ def blur_image(image, blur_level):
 
 st.title("Image Blur and Histograms")
 
-# Upload image
 uploaded_image = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 if uploaded_image is not None:
 
