@@ -34,8 +34,6 @@ def blur_image(image, blur_level):
 
     return blurred_image
 
-st.title("Image Blur and Histograms")
-
 uploaded_image = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 if uploaded_image is not None:
 
