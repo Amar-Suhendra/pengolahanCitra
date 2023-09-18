@@ -11,7 +11,7 @@ st.set_page_config(
 st.write("# Histogram Equalization")
 st.markdown(
   """
-  Histogram equalization is a method in image processing of contrast adjustment using the image's histogram.
+  Histogram Equalization is a computer image processing technique used to improve contrast in images. It accomplishes this by effectively spreading out the most frequent intensity values, i.e. stretching out the intensity range of the image.
 """
 )
 
