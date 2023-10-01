@@ -21,6 +21,9 @@ st.markdown(
     - 1. [Histogram Equalization Python](https://opencv24-python-tutorials.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_histograms/py_histogram_equalization/py_histogram_equalization.html)
     - 2. [Edge Detection](https://opencv24-python-tutorials.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_canny/py_canny.html)
     - 3. [Image Blurring](https://docs.opencv.org/4.x/d4/d13/tutorial_py_filtering.html)
+    - 4. Cloth Segmentation
+    - 5. Cartoonize Image
+    - 6. Face Filter
 
     ## About us
     We are a group of students from [Universitas Syiah Kuala](https://usk.ac.id) who are taking a course called Image Processing in the semester of 2023/2024. This web app is our project for the course.
