@@ -170,7 +170,6 @@ def main_streamlit():
     uploaded_file = st.file_uploader("Choose an image...", type="jpg")
     if uploaded_file is not None:
         st.write("")
-        st.write("Classifying...")
         device = 'cpu'
         # Create an instance of your model
         checkpoint_path ='model/cloth_segm.pth'
@@ -183,8 +182,10 @@ def main_streamlit():
         
         img = Image.open(io.BytesIO(uploaded_file.read()))
         cloth_seg = generate_mask(img, net=model, palette=palette, device=device)
+        col1.write("## Original Image")
         col1.image(img, channels = "RGB", width=400)
-        col1.image(cloth_seg, width=400)
+        col2.write("## Result Image")
+        col2.image(cloth_seg, width=400)
 
     else:
         st.info("Please upload an image.")
