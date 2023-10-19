@@ -1,3 +1,4 @@
 .vscode
 python/env
 venv
+python/model/*
