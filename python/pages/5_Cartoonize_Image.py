@@ -5,6 +5,12 @@ from sklearn.cluster import KMeans
 import tempfile
 
 
+st.set_page_config(
+    page_title="Cartoonize Filter",
+    page_icon="🏡",
+    layout="wide",
+)
+
 def cartoonize_image(image_path):
     image = cv2.imread(image_path)
     image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -40,8 +46,7 @@ def cartoonize_image(image_path):
 def main():
     st.title("Cartoonize Filter with Streamlit")
 
-    uploaded_image = st.file_uploader(
-        "Upload an image", type=["jpg", "jpeg", "png"])
+    uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
     if uploaded_image:
         col1, col2 = st.columns(2)

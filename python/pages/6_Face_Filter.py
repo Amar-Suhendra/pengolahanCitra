@@ -13,7 +13,6 @@ st.write("# Face Filter")
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml") # type: ignore
 eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_eye.xml") # type: ignore
 
-mask = cv2.imread("images/mask.png", -1)
 glasses = cv2.imread("images/glasses.png", -1)
 
 st.write("## Upload an image")

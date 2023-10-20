@@ -13,6 +13,11 @@ import torchvision.transforms as transforms
 from collections import OrderedDict
 from segmentasi.options import opt
 
+st.set_page_config(
+    page_title="Cloth Segmentation",
+    page_icon="🏡",
+    layout="wide",
+)
 
 def load_checkpoint(model, checkpoint_path):
     if not os.path.exists(checkpoint_path):
@@ -166,7 +171,16 @@ def main(image, checkpoint_path, cuda):
     return cloth_seg
 
 def main_streamlit():
-    st.title("Cloth Segmentation App")
+    st.title("Cloth Segmentation")
+    st.markdown(
+    """ Cloth segmentation is the process of identifying and separating clothing items within an image or video frame. It's essential for applications like virtual try-on systems and fashion analysis, achieved through techniques like deep learning and image segmentation algorithms.
+""")
+    
+    st.write("## How it works?")
+    st.markdown(
+    """ Cloth segmentation uses deep learning models trained on labeled clothing images. These models extract features like color and texture to separate clothing items from the background. The process involves training, feature extraction, segmentation, and post-processing, resulting in accurate delineation of clothing items in images.
+    """)
+    st.write("## Try it Out!")
     uploaded_file = st.file_uploader("Choose an image...", type="jpg")
     if uploaded_file is not None:
         st.write("")
@@ -186,9 +200,6 @@ def main_streamlit():
         col1.image(img, channels = "RGB", width=400)
         col2.write("## Result Image")
         col2.image(cloth_seg, width=400)
-
-    else:
-        st.info("Please upload an image.")
 
 
 if __name__ == "__main__":
