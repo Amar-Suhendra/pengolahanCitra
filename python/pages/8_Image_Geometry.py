@@ -24,10 +24,21 @@ def apply_translation(image, tx, ty):
     return translated_image
 
 def main():
-    st.title("Image Geometry Features with Streamlit")
+    st.set_page_config(
+    page_title="Image Geometry",
+    page_icon="🏡",
+    layout="wide",
+    )
 
+    st.title("Image Geometry")
+    st.markdown("""Image geometry is a technique to transform an image. Image geometry can be used to rotate, scale, and translate an image.""")
+
+    st.write("## How it works?")
+    st.markdown("""Image geometry works by using a transformation matrix. The transformation matrix is a matrix that is used to transform an image. The transformation matrix is used to rotate, scale, and translate an image.""")
+
+    st.write("## Try it out!")
     # Upload image through Streamlit
-    image = st.file_uploader("Pilih gambar", type=["jpg", "jpeg", "png"])
+    image = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
     if image is not None:
         image = cv2.imdecode(np.fromstring(image.read(), np.uint8), 1)

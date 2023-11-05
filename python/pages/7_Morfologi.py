@@ -2,6 +2,12 @@ import streamlit as st
 import cv2
 import numpy as np
 
+st.set_page_config(
+    page_title="Morphologi Operations",
+    page_icon="🏡",
+    layout="wide",
+)
+
 # Fungsi untuk melakukan Dilation
 def perform_dilation(image):
     kernel = np.ones((5, 5), np.uint8)
@@ -33,10 +39,14 @@ def perform_morph_gradient(image):
     return gradient
 
 # Streamlit UI
-st.title("Aplikasi Morfologi Gambar")
+st.title("Morphological Operations")
+st.markdown("""Morphological operations are image processing operations based on the shape of the object in the image. Morphological operations are usually used to process binary images, but can also be used to process grayscale images.""")
+st.write("## How it works?")
+st.markdown("""Morphological operations work by using a structuring element to process the image. The structuring element is a matrix that is used to process the image. The structuring element is placed on top of the image, and the structuring element is moved to every pixel in the image. The structuring element is used to determine the value of the pixel in the image. The structuring element is usually a matrix with a size of 3x3 or 5x5.""")
 
+st.write("## Try it out!")
 # Upload gambar
-image = st.file_uploader("Pilih gambar", type=["jpg", "jpeg", "png"])
+image = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
 if image is not None:
     image = cv2.imdecode(np.fromstring(image.read(), np.uint8), 1)

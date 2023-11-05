@@ -24,6 +24,9 @@ st.markdown(
     - 4. Cloth Segmentation
     - 5. Cartoonize Image
     - 6. Face Filter
+    - 7. Morphological Operations
+    - 8. Image Geometry
+    - 9. Image Interpolation
 
     ## About us
     We are a group of students from [Universitas Syiah Kuala](https://usk.ac.id) who are taking a course called Image Processing in the semester of 2023/2024. This web app is our project for the course.

@@ -44,9 +44,14 @@ def cartoonize_image(image_path):
 
 
 def main():
-    st.title("Cartoonize Filter with Streamlit")
+    st.title("Cartoonize Filter")
+    st.markdown(""" Cartoonize filter is a filter that makes your image look like a cartoon.""")
 
-    uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
+    st.write("## How it works?")
+    st.markdown("""This filter works by using K-means clustering for color quantization and Canny edge detection for edge detection.""")
+
+    st.write("## Try it out!")
+    uploaded_image = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
     if uploaded_image:
         col1, col2 = st.columns(2)
