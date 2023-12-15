@@ -1,81 +1,46 @@
 import streamlit as st
-import cv2
 import numpy as np
+import matplotlib.pyplot as plt
+from io import BytesIO
 
-st.set_page_config(
-    page_title="Chain Codes",
-    page_icon="🏡",
-    layout="wide",
-)
+def generate_freeman_plot(freeman_code):
+    img_size = 20
+    img = np.zeros((img_size, img_size))
 
-st.write("# Chain Codes")
-st.markdown(
-    """
-  Chain codes are a lossless compression technique used for representing contour shapes in an image. It is a simple technique that can be easily implemented in any programming language. It is also known as the Freeman Chain Code, named after its inventor, Kenneth Freeman, who developed the technique in 1961.
-"""
-)
+    x, y = 4, 4
+    img[y][x] = 1
 
-st.write("## How it works?")
-st.markdown("""
-Chain codes have 2 types of codes, 4-directional and 8-directional. 4-directional chain codes are used to represent contours with 4-connected pixels, while 8-directional chain codes are used to represent contours with 8-connected pixels.
-""")
+    for direction in freeman_code:
+        if direction in [1, 2, 3]:
+            y -= 1
+        if direction in [5, 6, 7]:
+            y += 1
+        if direction in [3, 4, 5]:
+            x -= 1
+        if direction in [0, 1, 7]:
+            x += 1
 
-st.write("## Try it out!")
+        img[y][x] = 1
 
-chain_code = []
+    return img
 
-def find_starting_direction(thresh_img, option, directions, height):
-    width = thresh_img.shape[1]
-    
-    for i, direction in enumerate(directions):
-        next_point = (0 + direction[0], 0 + direction[1])
-        if 0 <= next_point[0] < height and 0 <= next_point[1] < width and thresh_img[next_point] == 255:
-            return i
-    return -1
+def streamlit_freeman_code_app():
+    st.title("Chain Code Generator")
 
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-if uploaded_file is not None:
+    freeman_code_input = st.text_input("Enter Freeman Code (comma-separated):", "3, 3, 3, 6, 6, 4, 6, 7, 7, 0, 0, 6")
 
-    img = cv2.imdecode(np.frombuffer(uploaded_file.read(), np.uint8), 1)
+    try:
+        freeman_code = [int(code) for code in freeman_code_input.split(",")]
+    except ValueError:
+        st.error("Invalid input. Please enter a valid list of integers separated by commas.")
+        return
 
-    # Convert the image to grayscale
-    gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img = generate_freeman_plot(freeman_code)
 
-    # Apply thresholding to get a binary image
-    _, thresh_img = cv2.threshold(gray_img, 128, 255, cv2.THRESH_BINARY)
+    fig, ax = plt.subplots()
+    ax.imshow(img, cmap='binary')
+    ax.axis('off')  # Hide axes
+    st.pyplot(fig)
 
-    # Display the binary image
-    st.write("### Binary Image")
-    st.image(thresh_img, use_column_width=300)
-
-    # Calculate chain code directly from the binary image
-    option = st.selectbox("Select chain code type", [
-                          "4-directional", "8-directional"])
-    
-    # Define directions for 4-directional and 8-directional chain codes
-    directions_4 = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-    directions_8 = [(0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 1)]
-    
-    directions = directions_4 if option == "4-directional" else directions_8
-    height, width = thresh_img.shape
-
-    # Find the starting direction based on the first non-zero pixel
-    initial_direction = find_starting_direction(thresh_img, option, directions, height)
-
-    if initial_direction != -1:
-        current_point = (0, 0)
-        for _ in range(1000):  # A safety limit to avoid infinite loop
-            for i, direction in enumerate(directions):
-                next_point = (
-                    current_point[0] + direction[0], current_point[1] + direction[1])
-                if 0 <= next_point[0] < height and 0 <= next_point[1] < width and thresh_img[next_point] == 255:
-                    chain_code.append(i)
-                    current_point = next_point
-                    break
-
-        # Convert chain code to string
-        chain_code_str = "".join([str(code) for code in chain_code])
-
-        # Display the chain code
-        st.write("### Chain Code")
-        st.write(chain_code_str)
+if __name__ == '__main__':
+    streamlit_freeman_code_app()
